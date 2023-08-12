@@ -1,4 +1,4 @@
-	#Подготовка
+	#Таблица staff для заданий
 create table if not exists staff(
 		id int primary key not null unique,
     firstname varchar(45),
@@ -23,3 +23,24 @@ insert into staff (id, firstname, lastname, post, seniority, salary, age) values
 	(11, "Юрий", "Галкин", "Рабочий", 3, 12000, 24),
 	(12, "Людмила", "Маркина", "Уборщик", 10, 10000, 49);
 
+	#1. Отсортируйте данные по полю заработная плата (salary) в порядке: 
+	#убывания;
+select firstname, lastname, salary from staff order by salary desc;
+
+	#возрастания
+select firstname, lastname, salary from staff order by salary;
+
+	#2. Выведите 5 максимальны х заработны х плат (saraly)
+select salary from staff order by salary desc limit 5;
+
+	#3. Посчитайте суммарную зарплату (salary) по каждой специальности (роst)
+select post, sum(salary) from staff group by post;
+
+	#4. Найдите кол-во сотрудников с специальностью (post) «Рабочий» в возрасте от 24 д о 49 лет включительно.
+select post, count(post) from staff where age >24 and age <= 49 group by post;
+
+	#5. Найдите количество специальностей
+select count(distinct post) as "Кол-во специальностей" from staff;
+
+	#6. Выведите специальности, у которых средний возраст сотрудников меньше 30 лет
+select post from staff group by post having avg(age)<=30;
